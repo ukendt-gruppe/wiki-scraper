@@ -14,7 +14,6 @@ This project is a Wikipedia scraper built using Scrapy, designed to politely and
 
 ### Prerequisites
 - Python 3.x
-- PostgreSQL database
 - pip (Python package manager)
 
 ### Setup Environment Variables
