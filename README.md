@@ -17,4 +17,20 @@ This project is a Wikipedia scraper built using Scrapy, designed to politely and
 - PostgreSQL database
 - pip (Python package manager)
 
+### Setup Environment Variables
+```
+cp .env.example .env
+```
 
+### Run Database
+```
+cd docker
+docker compose -f docker-compose.dev.yml up
+docker exec -it <db_container_name> psql -U <db_user> -d <db_name>
+```
+
+### Run Scraper
+```
+cd wikicrawler
+scrapy crawl wiki
+```

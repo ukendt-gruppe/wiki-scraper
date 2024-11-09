@@ -76,7 +76,7 @@ POSTGRES_URI = f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@
 
 # Optional: Use environment variables for spider settings
 CONCURRENT_REQUESTS = int(os.getenv('CONCURRENT_REQUESTS', 2))
-DOWNLOAD_DELAY = int(os.getenv('DOWNLOAD_DELAY', 1))
+DOWNLOAD_DELAY = float(os.getenv('DOWNLOAD_DELAY', 1))
 LOG_LEVEL = os.getenv('LOG_LEVEL', 'DEBUG')
 
 # Enable and configure the AutoThrottle extension (disabled by default)
