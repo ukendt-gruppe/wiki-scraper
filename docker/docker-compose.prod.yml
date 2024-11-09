@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15  # Using base image instead of build for simplicity
+    container_name: wiki-postgres
+    environment:
+      POSTGRES_USER: wiki_user
+      POSTGRES_PASSWORD: wiki_password  # In production, use environment variables
+      POSTGRES_DB: wiki_scraper
+    ports:
+      - "5432:5432"
+    volumes:
+      - /home/azureuser/postgres-data:/var/lib/postgresql/data  # Using absolute path
+    restart: always  # Important for production
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wiki_user -d wiki_scraper"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
