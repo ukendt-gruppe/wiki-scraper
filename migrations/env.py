@@ -14,13 +14,15 @@ load_dotenv()
 # this is the Alembic Config object
 config = context.config
 
+config.set_main_option("sqlalchemy.url", os.getenv("DATABASE_URL"))
+
 # Set the sqlalchemy url from environment variables
-section = config.config_ini_section
-config.set_section_option(section, "DB_USER", os.getenv("DB_USER"))
-config.set_section_option(section, "DB_PASSWORD", os.getenv("DB_PASSWORD"))
-config.set_section_option(section, "DB_HOST", os.getenv("DB_HOST"))
-config.set_section_option(section, "DB_PORT", os.getenv("DB_PORT"))
-config.set_section_option(section, "DB_NAME", os.getenv("DB_NAME"))
+# section = config.config_ini_section
+# config.set_section_option(section, "DB_USER", os.getenv("DB_USER"))
+# config.set_section_option(section, "DB_PASSWORD", os.getenv("DB_PASSWORD"))
+# config.set_section_option(section, "DB_HOST", os.getenv("DB_HOST"))
+# config.set_section_option(section, "DB_PORT", os.getenv("DB_PORT"))
+# config.set_section_option(section, "DB_NAME", os.getenv("DB_NAME"))
 
 # Interpret the config file for Python logging
 if config.config_file_name is not None:
