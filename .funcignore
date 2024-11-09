@@ -1,0 +1,17 @@
+.git*
+.venv
+.env
+__pycache__
+local.settings.json
+test
+.vscode
+.pytest_cache
+htmlcov
+.coverage
+.python-version
+.tox
+.nox
+*.pyc
+.scrapy
+crawls/*
+!crawls/.keep

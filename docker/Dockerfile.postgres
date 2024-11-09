@@ -1,0 +1,8 @@
+FROM postgres:15
+
+# Create directory for env file
+RUN mkdir -p /app
+COPY .env /app/.env
+
+# Make sure postgres can read the file
+RUN chown postgres:postgres /app/.env
