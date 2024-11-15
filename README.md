@@ -21,11 +21,21 @@ This project is a Wikipedia scraper built using Scrapy, designed to politely and
 cp .env.example .env
 ```
 
-### Run Database
+### Run Database Locally
 ```
+IN ONE TERMINAL WINDOW:
 cd docker
 docker compose -f docker-compose.dev.yml up
+
+IN ANOTHER TERMINAL WINDOW:
 docker exec -it <db_container_name> psql -U <db_user> -d <db_name>
+```
+
+### Run Database Deployed
+```
+ssh -v -i ~/.ssh/<key_name> <user>@<vm ip>
+docker exec -it <db_container_name> psql -U <db_user> -d <db_name>
+
 ```
 
 ### Run Scraper
