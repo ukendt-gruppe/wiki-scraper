@@ -52,5 +52,7 @@ python scripts/backup_prod_db.py
 ```
 PYTHONPATH=$PYTHONPATH:. python scripts/migrate_to_prod.py
 ```
-### Restore Production Database
+### Restore Production Database From Latest Backup (WIP)
+```
+### Migrate Production Database To Local (WIP)
 ```
