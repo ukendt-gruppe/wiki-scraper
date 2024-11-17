@@ -187,5 +187,6 @@ terraform.tfstate.backup
 # Provider binary
 terraform-provider-*
 
-# # DB files
-# whoknows.db
+# DB files
+whoknows.db
+backups/*

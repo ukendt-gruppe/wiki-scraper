@@ -43,3 +43,14 @@ docker exec -it <db_container_name> psql -U <db_user> -d <db_name>
 cd wikicrawler
 scrapy crawl wiki
 ```
+
+### Backup Production Database
+```
+python scripts/backup_prod_db.py
+```
+### Migrate scraped data to PostgreSQL
+```
+PYTHONPATH=$PYTHONPATH:. python scripts/migrate_to_prod.py
+```
+### Restore Production Database
+```

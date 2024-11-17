@@ -68,46 +68,6 @@ def upgrade() -> None:
                     print(f"Error inserting page {page[0]}: {str(e)}")
                     continue
 
-            # Migrate wiki_articles table
-            sqlite_cursor.execute('SELECT id, url, title, content, scraped_at FROM wiki_articles')
-            articles = sqlite_cursor.fetchall()
-            
-            for article in articles:
-                try:
-                    connection.execute(
-                        sa.text('INSERT INTO wiki_articles (id, url, title, content, scraped_at) VALUES (:id, :url, :title, :content, :scraped_at)'),
-                        {
-                            "id": article[0],
-                            "url": article[1],
-                            "title": article[2],
-                            "content": article[3],
-                            "scraped_at": article[4] if article[4] else None
-                        }
-                    )
-                except Exception as e:
-                    print(f"Error inserting article {article[2]}: {str(e)}")
-                    continue
-
-            # Migrate migration_tracking table
-            sqlite_cursor.execute('SELECT id, article_id, migrated_at, status, error_message FROM migration_tracking')
-            tracking_records = sqlite_cursor.fetchall()
-            
-            for record in tracking_records:
-                try:
-                    connection.execute(
-                        sa.text('INSERT INTO migration_tracking (id, article_id, migrated_at, status, error_message) VALUES (:id, :article_id, :migrated_at, :status, :error_message)'),
-                        {
-                            "id": record[0],
-                            "article_id": record[1],
-                            "migrated_at": record[2] if record[2] else None,
-                            "status": record[3],
-                            "error_message": record[4]
-                        }
-                    )
-                except Exception as e:
-                    print(f"Error inserting tracking record {record[0]}: {str(e)}")
-                    continue
-
     except sqlite3.Error as e:
         print(f"SQLite error: {str(e)}")
         raise
