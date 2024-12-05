@@ -16,9 +16,23 @@ This project is a Wikipedia scraper built using Scrapy, designed to politely and
 - Python 3.x
 - pip (Python package manager)
 
+### Create Python Virtual Environment and Install Dependencies
+```
+python -m venv venv
+LINUX/MAC: source venv/bin/activate
+WINDOWS: source venv/Scripts/activate
+pip install -r requirements.txt
+```
+
 ### Setup Environment Variables
 ```
 cp .env.example .env
+Copy environment variables from to .env
+```
+
+### Migrate Database to local 
+```
+alembic head upgrade
 ```
 
 ### Run Database Locally
@@ -38,7 +52,7 @@ docker exec -it <db_container_name> psql -U <db_user> -d <db_name>
 
 ```
 
-### Run Scraper
+### Run Scraper and Save to Local PostgreSQL
 ```
 cd wikicrawler
 scrapy crawl wiki

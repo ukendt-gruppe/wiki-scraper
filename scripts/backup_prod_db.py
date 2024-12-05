@@ -2,6 +2,7 @@ import os
 import subprocess
 from datetime import datetime
 from dotenv import load_dotenv
+from urllib.parse import urlparse, parse_qs
 
 def backup_production_db():
     load_dotenv()
@@ -18,10 +19,12 @@ def backup_production_db():
     database_url = os.getenv('DATABASE_URL')
     
     # Parse database URL to get components
-    db_info = database_url.replace('postgresql://', '').split('/')
-    db_name = db_info[1]
-    db_user, db_pass = db_info[0].split('@')[0].split(':')
-    db_host = db_info[0].split('@')[1].split(':')[0]
+    parsed_url = urlparse(database_url)
+    db_name = parsed_url.path.lstrip('/')  # Remove leading slash from path
+    db_user = parsed_url.username
+    db_pass = parsed_url.password
+    db_host = parsed_url.hostname
+    db_port = parsed_url.port
 
     # Execute pg_dump using Docker
     try:
@@ -32,13 +35,17 @@ def backup_production_db():
             'postgres:latest',
             'pg_dump',
             '-h', db_host,
+            '-p', str(db_port),
             '-U', db_user,
             '-d', db_name,
+            '--no-owner',
+            '--no-acl',
             '-f', f'/backups/prod_backup_{timestamp}.sql'
-        ], check=True)
+        ], check=True, stderr=subprocess.PIPE)
         print(f"Backup created successfully: {backup_file}")
     except subprocess.CalledProcessError as e:
         print(f"Backup failed: {str(e)}")
+        print(f"Error output: {e.stderr.decode()}")
 
 if __name__ == "__main__":
     backup_production_db()
